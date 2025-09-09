@@ -1,6 +1,8 @@
-import React from "react";
+
 
 export default function MovieCard({ movie }) {
+        if(!movie.poster_path) return null
+
   return (
     <div className="cursor-pointer hover:scale-105 transform transition">
       {movie.poster_path && (
