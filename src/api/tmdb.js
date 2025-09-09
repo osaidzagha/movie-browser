@@ -15,3 +15,15 @@ export async function searchMovies(query) {
     return [];
   }
 }
+
+export async function getTrendingMovies() {
+  const url = `${BASE_URL}/trending/movie/day?api_key=${API_KEY}`;
+  try {
+    const res = await fetch(url);
+    const data = await res.json();
+    return data.results;
+  } catch (error) {
+    console.error("Error fetching trending movies:", error);
+    return [];
+  }
+}
