@@ -1,12 +1,43 @@
-# React + Vite
+# 🎬 Movie Browser (React + Vite)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A Netflix-inspired **Movie Browser** built with React and Vite.  
+Users can search for movies/shows, browse through carousels, and view detailed information.
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+## 🚀 Features (Planned)
+- **Home Page**
+  - Search bar to find movies/shows.
+  - Carousel displaying trending/popular titles.
+  - On hover/click → popup with mini details (title, year, rating).
+  - "More Info" button → opens a dedicated detail page.
 
-## Expanding the ESLint configuration
+- **Search**
+  - Search by title.
+  - Display results in a grid or carousel.
+  - Clicking a result → detail page.
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+- **Detail Page**
+  - Poster, title, release year, rating, genres.
+  - Overview/description.
+  - (Optional) Cast and crew.
+
+---
+
+## 🛠️ Tech Stack
+- **Frontend:** React + Vite  
+- **Styling:** Tailwind CSS  
+- **Routing:** React Router  
+- **API:** TMDB API (The Movie Database)  
+
+---
+
+## 📌 Notes
+⚠️ **Work in progress**  
+- Currently working on the Home Page (search bar + carousel).  
+- Next step: Show Detail Page.  
+
+---
+
+## 🖼️ Reference Design
+The design and theme are inspired by **Netflix** (dark mode UI with carousels).
