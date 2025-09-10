@@ -3,16 +3,26 @@ import SearchBar from "../components/SearchBar";
 import MovieCard from "../components/MovieCard";
 import Carousel from "../components/Carousel";
 import { searchMovies, getTrendingMovies } from "../api/tmdb";
+import toast from "react-hot-toast";
 
 export default function HomePage() {
   const [query, setQuery] = useState("");
   const [movies, setMovies] = useState([]);
   const [trending, setTrending] = useState([]);
+  const [loadingTrending, setLoadingTrending] = useState(false);
+  const [loadingSearch, setLoadingSearch] = useState(false);
 
   useEffect(() => {
     const fetchTrending = async () => {
-      const data = await getTrendingMovies();
-      setTrending(data);
+      setLoadingTrending(true);
+      try {
+        const data = await getTrendingMovies();
+        setTrending(data || []);
+      } catch (err) {
+        toast.error("Failed to load trending movies");
+      } finally {
+        setLoadingTrending(false);
+      }
     };
     fetchTrending();
   }, []);
@@ -24,26 +34,51 @@ export default function HomePage() {
     }
 
     const timeoutId = setTimeout(async () => {
-      const results = await searchMovies(query);
-      setMovies(results);
-    }, 500);
+      setLoadingSearch(true);
+      try {
+        const results = await searchMovies(query);
+        setMovies(results || []);
+      } catch (err) {
+        toast.error("Failed to search movies");
+      } finally {
+        setLoadingSearch(false);
+      }
+    }, 300);
 
     return () => clearTimeout(timeoutId);
   }, [query]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6">
+    <div className="min-h-screen bg-gray-900 text-white p-6 relative">
       <div className="flex justify-center my-4">
         <SearchBar query={query} setQuery={setQuery} />
       </div>
 
-      <Carousel movies={trending} />
+      {!query && (
+        <>
+          {loadingTrending ? (
+            <p className="text-center">Loading trending movies...</p>
+          ) : trending.length > 0 ? (
+            <Carousel movies={trending} />
+          ) : (
+            <p className="text-center">No trending movies found.</p>
+          )}
+        </>
+      )}
 
-      {movies.length > 0 && (
-        <div className="mt-6 grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-          {movies.map((movie) => (
-            <MovieCard key={movie.id} movie={movie} />
-          ))}
+      {query && (
+        <div className="mt-6">
+          {loadingSearch ? (
+            <p className="text-center">Searching...</p>
+          ) : movies.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+              {movies.map(
+                (movie) => movie && <MovieCard key={movie.id} movie={movie} />
+              )}
+            </div>
+          ) : (
+            <p className="text-center">No results found.</p>
+          )}
         </div>
       )}
     </div>

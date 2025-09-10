@@ -1,5 +1,5 @@
-const API_KEY = "55a6de34e3770297d021c43b857b9d9e";
-const BASE_URL = "https://api.themoviedb.org/3";
+import { API_KEY, BASE_URL } from "../constants.jsx";
+import toast from "react-hot-toast";
 
 export async function searchMovies(query) {
   if (!query) return [];
@@ -11,7 +11,7 @@ export async function searchMovies(query) {
     const data = await res.json();
     return data.results;
   } catch (error) {
-    console.error("Error fetching movies:", error);
+    toast.error("Failed to search movies. Please try again later.");
     return [];
   }
 }
@@ -23,7 +23,7 @@ export async function getTrendingMovies() {
     const data = await res.json();
     return data.results;
   } catch (error) {
-    console.error("Error fetching trending movies:", error);
+    toast.error("Failed to fetch trending movies. Please try again later.");
     return [];
   }
 }
