@@ -11,6 +11,7 @@ export default function HomePage() {
   const [trending, setTrending] = useState([]);
   const [loadingTrending, setLoadingTrending] = useState(false);
   const [loadingSearch, setLoadingSearch] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -28,16 +29,20 @@ export default function HomePage() {
   }, []);
 
   useEffect(() => {
-    if (!query) {
+    const trimmedQuery = query.trim();
+
+    if (!trimmedQuery) {
       setMovies([]);
+      setHasSearched(false);
       return;
     }
 
     const timeoutId = setTimeout(async () => {
       setLoadingSearch(true);
       try {
-        const results = await searchMovies(query);
+        const results = await searchMovies(trimmedQuery);
         setMovies(results || []);
+        setHasSearched(true);
       } catch (err) {
         toast.error("Failed to search movies");
       } finally {
@@ -70,15 +75,15 @@ export default function HomePage() {
         <div className="mt-6">
           {loadingSearch ? (
             <p className="text-center">Searching...</p>
-          ) : movies.length > 0 ? (
+          ) : hasSearched && movies.length > 0 ? (
             <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
               {movies.map(
                 (movie) => movie && <MovieCard key={movie.id} movie={movie} />
               )}
             </div>
-          ) : (
+          ) : hasSearched ? (
             <p className="text-center">No results found.</p>
-          )}
+          ) : null}
         </div>
       )}
     </div>
