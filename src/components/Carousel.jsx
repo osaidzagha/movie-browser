@@ -40,12 +40,6 @@ const carouselSettings = {
 export default function Carousel({ movies }) {
   const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
-  useEffect(() => {
-    const handleResize = () => setWindowWidth(window.innerWidth);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
   if (!movies || movies.length === 0) return null;
 
   return (
