@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
 
+import { ChevronLeft, ChevronRight } from "lucide-react";
+
 function NextArrow({ onClick }) {
   return (
     <div
-      className="absolute top-1/2 right-4 transform -translate-y-1/2 z-10 bg-gray-800 text-white p-2 rounded cursor-pointer"
+      className="flex items-center justify-center w-12 h-12 
+      rounded-full bg-gradient-to-r from-purple-500 to-pink-500 
+      hover:from-purple-600 hover:to-pink-600 
+      text-white shadow-lg shadow-pink-500/50 
+      cursor-pointer absolute z-10 right-4 top-1/2 
+      -translate-y-1/2 transition"
       onClick={onClick}
     >
-      &gt;
+      <ChevronRight size={24} />
     </div>
   );
 }
@@ -15,10 +22,15 @@ function NextArrow({ onClick }) {
 function PrevArrow({ onClick }) {
   return (
     <div
-      className="absolute top-1/2 left-4 transform -translate-y-1/2 z-10 bg-gray-800 text-white p-2 rounded cursor-pointer"
+      className="flex items-center justify-center w-12 h-12 
+      rounded-full bg-gradient-to-r from-purple-500 to-pink-500 
+      hover:from-purple-600 hover:to-pink-600 
+      text-white shadow-lg shadow-pink-500/50 
+      cursor-pointer absolute z-10 left-4 top-1/2 
+      -translate-y-1/2 transition"
       onClick={onClick}
     >
-      &lt;
+      <ChevronLeft size={24} />
     </div>
   );
 }
