@@ -1,12 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
 import { getMovieDetails } from "../api/tmdb";
 import toast from "react-hot-toast";
+import { useParams, useNavigate } from "react-router-dom";
+import { ChevronLeft } from "lucide-react";
 
 export default function ShowPage() {
   const { id } = useParams();
   const [movie, setMovie] = useState(null);
   const [loading, setLoading] = useState(true);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchMovie = async () => {
@@ -37,6 +39,16 @@ export default function ShowPage() {
       >
         <div className="absolute inset-0 bg-black/60" />
       </div>
+
+      <button
+        onClick={() => navigate(-1)}
+        className="absolute top-8 left-8 flex items-center justify-center w-12 h-12 rounded-full
+                   bg-gradient-to-r from-purple-500 to-pink-500
+                   hover:from-purple-600 hover:to-pink-600
+                   text-white shadow-lg shadow-pink-500/50 cursor-pointer z-20"
+      >
+        <ChevronLeft size={24} />
+      </button>
 
       <div className="absolute top-0 left-0 w-full h-[100vh] flex items-center px-8 gap-8">
         <img
