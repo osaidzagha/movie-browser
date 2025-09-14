@@ -28,15 +28,45 @@ export default function ShowPage() {
   if (!movie) return <p className="text-white p-6">Movie not found.</p>;
 
   return (
-    <div className="p-6 text-white">
-      <h1 className="text-3xl font-bold mb-4">{movie.title}</h1>
-      <img
-        src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-        alt={movie.title}
-        className="w-64 rounded-lg mb-4"
-      />
-      <p>{movie.overview}</p>
-      <p className="mt-2">Rating: {movie.vote_average}</p>
+    <div className="relative bg-black min-h-screen">
+      {/* Backdrop */}
+      <div
+        className="w-full h-[100vh] bg-cover bg-center relative"
+        style={{
+          backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
+        }}
+      >
+        <div className="absolute inset-0 bg-black/60" /> {/* Dark overlay */}
+      </div>
+
+      {/* Content overlay */}
+      <div className="absolute top-0 left-0 w-full h-[100vh] flex items-center px-8 gap-8">
+        {/* Poster */}
+        <img
+          src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
+          alt={movie.title}
+          className="w-64 md:w-80 rounded-lg shadow-lg"
+        />
+
+        {/* Text content */}
+        <div className="max-w-2xl">
+          <h1 className="text-4xl font-bold mb-4 text-white">
+            {movie.title || movie.original_title}
+          </h1>
+          <p className="mb-4 text-gray-300">{movie.overview}</p>
+          <p className="text-yellow-400 font-semibold">
+            ⭐ Rating: {movie.vote_average ?? "N/A"}
+          </p>
+          <p className="text-gray-300">📅 Release Date: {movie.release_date}</p>
+          <p className="text-gray-300">⏱ Runtime: {movie.runtime} mins</p>
+          <p className="text-gray-300">
+            🎭 Genres: {movie.genres?.map((g) => g.name).join(", ")}
+          </p>
+          <p className="text-gray-300">
+            🌍 Language: {movie.original_language?.toUpperCase()}
+          </p>
+        </div>
+      </div>
     </div>
   );
 }
