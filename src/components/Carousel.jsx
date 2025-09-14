@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import Slider from "react-slick";
+import MovieCard from "./MovieCard";
 
 import { ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -61,12 +62,7 @@ export default function Carousel({ movies }) {
       <Slider key={windowWidth} {...carouselSettings}>
         {movies.map((movie) => (
           <div key={movie.id} className="p-2">
-            <img
-              src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
-              alt={movie.title}
-              className="rounded-lg w-full h-64 object-cover"
-            />
-            <p className="mt-2 text-sm truncate">{movie.title}</p>
+            <MovieCard movie={movie} />
           </div>
         ))}
       </Slider>

@@ -1,3 +1,7 @@
+import { useParams } from "react-router-dom";
+
 export default function ShowPage() {
-  return <div>Show Page</div>;
+  const { id } = useParams();
+
+  return <div>Movie ID: {id}</div>;
 }
