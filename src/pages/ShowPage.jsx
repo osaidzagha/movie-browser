@@ -29,26 +29,22 @@ export default function ShowPage() {
 
   return (
     <div className="relative bg-black min-h-screen">
-      {/* Backdrop */}
       <div
         className="w-full h-[100vh] bg-cover bg-center relative"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         }}
       >
-        <div className="absolute inset-0 bg-black/60" /> {/* Dark overlay */}
+        <div className="absolute inset-0 bg-black/60" />
       </div>
 
-      {/* Content overlay */}
       <div className="absolute top-0 left-0 w-full h-[100vh] flex items-center px-8 gap-8">
-        {/* Poster */}
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className="w-64 md:w-80 rounded-lg shadow-lg"
         />
 
-        {/* Text content */}
         <div className="max-w-2xl">
           <h1 className="text-4xl font-bold mb-4 text-white">
             {movie.title || movie.original_title}
