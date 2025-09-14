@@ -57,8 +57,6 @@ export default function Carousel({ movies }) {
 
   return (
     <div className="my-6 relative px-4 md:px-6">
-      <h2 className="text-xl font-bold mb-4">Trending Movies</h2>
-
       <Slider key={windowWidth} {...carouselSettings}>
         {movies.map((movie) => (
           <div key={movie.id} className="p-2">
