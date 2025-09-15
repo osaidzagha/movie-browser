@@ -63,7 +63,7 @@ export default function HomePage() {
 
   return (
     <motion.div
-      className="relative min-h-screen bg-gray-900 text-white p-6"
+      className="relative min-h-screen bg-black text-white p-6"
       initial={{ opacity: 0, y: 20 }}
       animate={{ opacity: 1, y: 0 }}
       exit={{ opacity: 0, y: -20 }}
