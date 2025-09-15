@@ -67,12 +67,12 @@ export default function HomePage() {
 
       {!query && randomHeroMovie && (
         <Link to={`/movie/${randomHeroMovie.id}`}>
-          <div className="relative w-full mb-8 rounded-xl overflow-hidden">
-            <img
-              src={`https://image.tmdb.org/t/p/original${randomHeroMovie.backdrop_path}`}
-              alt={randomHeroMovie.title}
-              className="w-full h-auto object-contain"
-            />
+          <div
+            className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] rounded-xl mb-8 overflow-hidden bg-top bg-cover"
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original${randomHeroMovie.backdrop_path})`,
+            }}
+          >
             <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
             <div className="absolute bottom-8 left-8 max-w-2xl">
               <h1 className="text-3xl md:text-5xl font-bold">
