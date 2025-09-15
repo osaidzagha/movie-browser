@@ -3,6 +3,7 @@ import { getMovieDetails } from "../api/tmdb";
 import toast from "react-hot-toast";
 import { useParams, useNavigate } from "react-router-dom";
 import { ChevronLeft } from "lucide-react";
+import { motion } from "framer-motion";
 
 export default function ShowPage() {
   const { id } = useParams();
@@ -30,16 +31,25 @@ export default function ShowPage() {
   if (!movie) return <p className="text-white p-6">Movie not found.</p>;
 
   return (
-    <div className="relative bg-black min-h-screen">
+    <motion.div
+      className="relative bg-black min-h-screen"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
       {/* Backdrop image covering the screen */}
-      <div
+      <motion.div
         className="w-full h-[100vh] bg-cover bg-center relative"
         style={{
           backgroundImage: `url(https://image.tmdb.org/t/p/original${movie.backdrop_path})`,
         }}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ duration: 0.8 }}
       >
         <div className="absolute inset-0 bg-black/60" />
-      </div>
+      </motion.div>
 
       <button
         onClick={() => navigate(-1)}
@@ -53,13 +63,21 @@ export default function ShowPage() {
 
       {/* Main content: poster + movie info */}
       <div className="absolute top-0 left-0 w-full h-[100vh] flex items-center px-8 gap-8">
-        <img
+        <motion.img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
           alt={movie.title}
           className="w-64 md:w-80 rounded-lg shadow-lg"
+          initial={{ opacity: 0, y: 50 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.7, ease: "easeOut" }}
         />
 
-        <div className="max-w-2xl">
+        <motion.div
+          className="max-w-2xl"
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 0.7, delay: 0.3 }}
+        >
           <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">
             {movie.title || movie.original_title}
           </h1>
@@ -79,8 +97,8 @@ export default function ShowPage() {
           <p className="text-gray-300">
             🌍 Language: {movie.original_language?.toUpperCase()}
           </p>
-        </div>
+        </motion.div>
       </div>
-    </div>
+    </motion.div>
   );
 }
