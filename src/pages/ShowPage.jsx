@@ -31,6 +31,7 @@ export default function ShowPage() {
 
   return (
     <div className="relative bg-black min-h-screen">
+      {/* Backdrop image covering the screen */}
       <div
         className="w-full h-[100vh] bg-cover bg-center relative"
         style={{
@@ -50,6 +51,7 @@ export default function ShowPage() {
         <ChevronLeft size={24} />
       </button>
 
+      {/* Main content: poster + movie info */}
       <div className="absolute top-0 left-0 w-full h-[100vh] flex items-center px-8 gap-8">
         <img
           src={`https://image.tmdb.org/t/p/w500${movie.poster_path}`}
