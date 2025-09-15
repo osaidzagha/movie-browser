@@ -4,7 +4,7 @@ export default function Logo() {
   const navigate = useNavigate();
 
   return (
-    <div className="absolute top-4 left-4 z-30">
+    <div className="absolute top-6 left-6 z-30">
       <h1
         onClick={() => navigate("/")}
         className="text-3xl md:text-5xl font-extrabold 
