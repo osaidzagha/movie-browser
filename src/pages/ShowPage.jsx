@@ -60,16 +60,20 @@ export default function ShowPage() {
         />
 
         <div className="max-w-2xl">
-          <h1 className="text-4xl font-bold mb-4 text-white">
+          <h1 className="text-4xl md:text-5xl font-bold mb-4 text-white drop-shadow-lg">
             {movie.title || movie.original_title}
           </h1>
-          <p className="mb-4 text-gray-300">{movie.overview}</p>
+          <p className="mb-4 text-gray-100 text-lg leading-relaxed">
+            {movie.overview}
+          </p>
           <p className="text-yellow-400 font-semibold">
             ⭐ Rating: {movie.vote_average ?? "N/A"}
           </p>
-          <p className="text-gray-300">📅 Release Date: {movie.release_date}</p>
-          <p className="text-gray-300">⏱ Runtime: {movie.runtime} mins</p>
-          <p className="text-gray-300">
+          <p className="text-gray-100 mb-1">
+            📅 Release Date: {movie.release_date}
+          </p>
+          <p className="text-gray-100 mb-1">⏱ Runtime: {movie.runtime} mins</p>
+          <p className="text-gray-100">
             🎭 Genres: {movie.genres?.map((g) => g.name).join(", ")}
           </p>
           <p className="text-gray-300">
