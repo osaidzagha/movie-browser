@@ -22,6 +22,13 @@ export default defineConfig([
         sourceType: "module",
       },
     },
+    settings: {
+      "import/resolver": {
+        node: {
+          extensions: [".js", ".jsx", ".ts", ".tsx"], // <-- add this
+        },
+      },
+    },
     rules: {
       "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
     },
