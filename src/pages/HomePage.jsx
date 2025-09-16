@@ -5,6 +5,8 @@ import Carousel from "../components/Carousel";
 import { searchMovies, getTrendingMovies } from "../api/tmdb";
 import toast from "react-hot-toast";
 import { Link } from "react-router-dom";
+import Logo from "../components/Logo.jsx";
+import { motion } from "framer-motion";
 
 export default function HomePage() {
   const [query, setQuery] = useState("");
@@ -60,7 +62,15 @@ export default function HomePage() {
   }, [query]);
 
   return (
-    <div className="min-h-screen bg-gray-900 text-white p-6 relative">
+    <motion.div
+      className="relative min-h-screen bg-black text-white p-6"
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -20 }}
+      transition={{ duration: 0.5, ease: "easeInOut" }}
+    >
+      <Logo />
+
       <div className="flex justify-center my-4">
         <SearchBar query={query} setQuery={setQuery} />
       </div>
@@ -115,6 +125,6 @@ export default function HomePage() {
           ) : null}
         </div>
       )}
-    </div>
+    </motion.div>
   );
 }
