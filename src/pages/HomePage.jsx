@@ -4,6 +4,7 @@ import MovieCard from "../components/MovieCard";
 import Carousel from "../components/Carousel";
 import { searchMovies, getTrendingMovies } from "../api/tmdb";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
 
 export default function HomePage() {
   const [query, setQuery] = useState("");
@@ -12,6 +13,11 @@ export default function HomePage() {
   const [loadingTrending, setLoadingTrending] = useState(false);
   const [loadingSearch, setLoadingSearch] = useState(false);
   const [hasSearched, setHasSearched] = useState(false);
+
+  const randomHeroMovie =
+    trending.length > 0
+      ? trending[Math.floor(Math.random() * trending.length)]
+      : null;
 
   useEffect(() => {
     const fetchTrending = async () => {
@@ -59,16 +65,36 @@ export default function HomePage() {
         <SearchBar query={query} setQuery={setQuery} />
       </div>
 
-      {!query && (
-        <>
+      {!query && randomHeroMovie && (
+        <Link to={`/movie/${randomHeroMovie.id}`}>
+          <div
+            className="relative w-full h-[450px] md:h-[550px] lg:h-[650px] rounded-xl mb-8 overflow-hidden bg-top bg-cover"
+            style={{
+              backgroundImage: `url(https://image.tmdb.org/t/p/original${randomHeroMovie.backdrop_path})`,
+            }}
+          >
+            <div className="absolute inset-0 bg-gradient-to-t from-black to-transparent"></div>
+            <div className="absolute bottom-8 left-8 max-w-2xl">
+              <h1 className="text-3xl md:text-5xl font-bold">
+                {randomHeroMovie.title || randomHeroMovie.original_title}
+              </h1>
+              <p className="mt-2 text-sm md:text-lg line-clamp-3">
+                {randomHeroMovie.overview || "No description available."}
+              </p>
+            </div>
+          </div>
+        </Link>
+      )}
+
+      {!query && trending.length > 0 && (
+        <div className="mb-8">
+          <h2 className="text-2xl font-bold mb-4">Trending Movies</h2>
           {loadingTrending ? (
-            <p className="text-center">Loading trending movies...</p>
-          ) : trending.length > 0 ? (
-            <Carousel movies={trending} />
+            <p>Loading trending movies...</p>
           ) : (
-            <p className="text-center">No trending movies found.</p>
+            <Carousel movies={trending} />
           )}
-        </>
+        </div>
       )}
 
       {query && (
@@ -76,11 +102,14 @@ export default function HomePage() {
           {loadingSearch ? (
             <p className="text-center">Searching...</p>
           ) : hasSearched && movies.length > 0 ? (
-            <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-              {movies.map(
-                (movie) => movie && <MovieCard key={movie.id} movie={movie} />
-              )}
-            </div>
+            <>
+              <h2 className="text-2xl font-bold mb-4">Search Results</h2>
+              <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-6">
+                {movies.map(
+                  (movie) => movie && <MovieCard key={movie.id} movie={movie} />
+                )}
+              </div>
+            </>
           ) : hasSearched ? (
             <p className="text-center">No results found.</p>
           ) : null}
